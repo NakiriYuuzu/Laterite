@@ -1,7 +1,6 @@
 package tw.edu.pu.beacon
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -26,7 +25,8 @@ fun BeaconScreen(
     title: String,
     image: Int,
     isPlayClick: Boolean,
-    onPlayButton:() -> Unit
+    onPlayButton:() -> Unit,
+    onCloseButton:() -> Unit
 ) {
     if (isPopUp.value) {
         Dialog(onDismissRequest = { isPopUp.value = false }) {
@@ -45,14 +45,15 @@ fun BeaconScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceAround,
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "Close",
-                            modifier = Modifier
-                                .size(40.dp, 40.dp)
-                                .clickable { isPopUp.value = false },
-                            tint = LateriteTheme.colors.primaryText
-                        )
+                        IconButton(onClick = onCloseButton) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Close",
+                                modifier = Modifier
+                                    .size(40.dp, 40.dp),
+                                tint = LateriteTheme.colors.primaryText
+                            )
+                        }
 
                         Spacer(modifier = Modifier.padding(5.dp))
                     }
